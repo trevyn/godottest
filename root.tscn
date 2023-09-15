@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqy6bphjgf7hc"]
+
+[ext_resource type="PackedScene" uid="uid://c6aft2srev4ay" path="res://label.tscn" id="1_uej5h"]
+
+[node name="Root" type="Node2D"]
+
+[node name="Label" parent="." instance=ExtResource("1_uej5h")]
+offset_left = -11.0
+offset_top = 204.0
+offset_right = 320.0
+offset_bottom = 286.0
+
+[node name="Label2" parent="." instance=ExtResource("1_uej5h")]
+offset_left = -45.0
+offset_top = 75.0
+offset_right = 286.0
+offset_bottom = 157.0

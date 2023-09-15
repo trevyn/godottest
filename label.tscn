@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6aft2srev4ay"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vxxxm"]
+font_size = 59
+
+[node name="Label" type="Label"]
+offset_left = -166.0
+offset_top = -44.0
+offset_right = 165.0
+offset_bottom = 38.0
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+text = "Hello World"
+label_settings = SubResource("LabelSettings_vxxxm")
