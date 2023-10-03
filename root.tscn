@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cqy6bphjgf7hc"]
+[gd_scene load_steps=4 format=3 uid="uid://cqy6bphjgf7hc"]
 
 [ext_resource type="PackedScene" uid="uid://c6aft2srev4ay" path="res://label.tscn" id="1_uej5h"]
+[ext_resource type="Texture2D" uid="uid://dib2pa70cidwj" path="res://icon.svg" id="2_xjbre"]
+[ext_resource type="Script" path="res://Icon.gd" id="3_y47ji"]
 
 [node name="Root" type="Node2D"]
 
@@ -15,3 +17,8 @@ offset_left = -45.0
 offset_top = 75.0
 offset_right = 286.0
 offset_bottom = 157.0
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(438, 179)
+texture = ExtResource("2_xjbre")
+script = ExtResource("3_y47ji")
