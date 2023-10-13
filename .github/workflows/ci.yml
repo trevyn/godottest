@@ -21,7 +21,7 @@ jobs:
       - run: curl -v -o godot.zip -L https://github.com/godotengine/godot-builds/releases/download/${{env.GODOT_VERSION}}/Godot_v${{env.GODOT_VERSION}}_macos.universal.zip
       - run: unzip godot.zip
       - run: curl -v -o templates.zip -L https://github.com/godotengine/godot-builds/releases/download/${{env.GODOT_VERSION}}/Godot_v${{env.GODOT_VERSION}}_export_templates.tpz
-      - run: unzip templates.zip
+      - run: unzip templates.zip "templates/macos.zip templates/version.txt"
 
   build-windows:
     runs-on: windows-latest
@@ -31,4 +31,4 @@ jobs:
       - run: curl -v -o godot.zip -L https://github.com/godotengine/godot-builds/releases/download/${{env.GODOT_VERSION}}/Godot_v${{env.GODOT_VERSION}}_win64.exe.zip
       - run: unzip godot.zip
       - run: curl -v -o templates.zip -L https://github.com/godotengine/godot-builds/releases/download/${{env.GODOT_VERSION}}/Godot_v${{env.GODOT_VERSION}}_export_templates.tpz
-      - run: unzip templates.zip
+      - run: unzip templates.zip "templates/windows_release_x86_64* templates/version.txt"
