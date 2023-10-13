@@ -93,9 +93,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v3
 
-      # - run: cat build_id/build_id
+      - run: cat build_id/build_id
 
-      # - run: echo "BUILD_ID=$(cat build_id/build_id)" >> $GITHUB_ENV
+      - run: echo "BUILD_ID=$(cat build_id/build_id)" >> $GITHUB_ENV
 
       # - run: mv macos-latest-stable/$(basename macos-latest-stable/*) $(basename macos-latest-stable/*)-mac
 
