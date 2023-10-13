@@ -10,7 +10,7 @@ permissions:
 
 env:
   CARGO_TERM_COLOR: always
-  GODOT_VERSION: 4.1.2-rc1
+  GODOT_VERSION: 4.1.2
 
 jobs:
   build-macos:
