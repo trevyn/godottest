@@ -27,6 +27,21 @@ jobs:
   #     # - run: Godot.app/Contents/MacOS/Godot -v --export-release --headless "macOS" Godottest.dmg
   #     - run: ls -la
 
+  assign:
+    name: assign build_id
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: wget https://github.com/trevyn/animal-time/releases/latest/download/animal-time
+      - run: chmod +x animal-time
+      - run: ./animal-time > build_id
+      - run: cat build_id
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: build_id
+          path: build_id
+
   build-macos:
     runs-on: macos-latest
     steps:
@@ -67,3 +82,30 @@ jobs:
         with:
           name: Godottest.exe
           path: Godottest.exe
+
+  release:
+    permissions:
+      contents: write
+    needs: [assign, build-macos, build-windows]
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v3
+
+      # - run: cat build_id/build_id
+
+      # - run: echo "BUILD_ID=$(cat build_id/build_id)" >> $GITHUB_ENV
+
+      # - run: mv macos-latest-stable/$(basename macos-latest-stable/*) $(basename macos-latest-stable/*)-mac
+
+      - run: ls
+
+      # - run: |
+      #     mv ubuntu-latest-nightly/Cargo.lock Cargo.lock
+      #     mv ubuntu-latest-nightly/package-lock.json package-lock.json
+      #     mv ubuntu-latest-nightly/target/x86_64-unknown-linux-gnu/release/$(basename ubuntu-latest-nightly/target/x86_64-unknown-linux-gnu/release/*) $(basename ubuntu-latest-nightly/target/x86_64-unknown-linux-gnu/release/*)-linux
+
+      - run: gh release create ${{ env.BUILD_ID }} --target ${{ github.sha }} --generate-notes Godottest.dmg Godottest.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
