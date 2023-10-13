@@ -41,6 +41,11 @@ jobs:
       - run: Godot.app/Contents/MacOS/Godot -v --export-release --headless "macOS" Godottest.dmg
       - run: ls -la
 
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Godottest.dmg
+          path: Godottest.dmg
+
   build-windows:
     runs-on: windows-latest
     steps:
@@ -57,3 +62,8 @@ jobs:
       # - run: ./Godot_v${{env.GODOT_VERSION}}_win64.exe --help
       # - run: ./Godot_v${{env.GODOT_VERSION}}_win64.exe -v --headless --export-release "Windows Desktop" Godottest.exe
       - run: ls
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Godottest.exe
+          path: Godottest.exe
