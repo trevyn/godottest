@@ -33,4 +33,5 @@ jobs:
       - run: unzip godot.zip
       - run: curl -v -o templates.zip -L https://github.com/godotengine/godot-builds/releases/download/${{env.GODOT_VERSION}}/Godot_v${{env.GODOT_VERSION}}_export_templates.tpz
       - run: unzip templates.zip "templates/windows_release_x86_64*" "templates/version.txt"
-      - run: "Godot_v${{env.GODOT_VERSION}}_win64.exe" --export-release "Windows Desktop" Godottest.exe
+      - run: mv Godot_v${{env.GODOT_VERSION}}_win64.exe godot.exe
+      - run: godot.exe --export-release "Windows Desktop" Godottest.exe
