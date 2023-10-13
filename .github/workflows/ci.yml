@@ -22,6 +22,8 @@ jobs:
       - run: unzip godot.zip
       - run: curl -v -o templates.zip -L https://github.com/godotengine/godot-builds/releases/download/${{env.GODOT_VERSION}}/Godot_v${{env.GODOT_VERSION}}_export_templates.tpz
       - run: unzip templates.zip "templates/macos.zip" "templates/version.txt"
+      - run: mkdir -p /Users/runner/Library/Application\ Support/Godot/export_templates/$(cat templates/version.txt)
+      - run: mv templates/macos.zip /Users/runner/Library/Application\ Support/Godot/export_templates/$(cat templates/version.txt)/macos.zip
       - run: Godot.app/Contents/MacOS/Godot -v --export-release --headless "macOS" Godottest.dmg
       - run: ls -la
 
@@ -34,5 +36,5 @@ jobs:
       - run: unzip godot.zip
       - run: curl -v -o templates.zip -L https://github.com/godotengine/godot-builds/releases/download/${{env.GODOT_VERSION}}/Godot_v${{env.GODOT_VERSION}}_export_templates.tpz
       - run: unzip templates.zip "templates/windows_release_x86_64*" "templates/version.txt"
-      - run: Godot_v${{env.GODOT_VERSION}}_win64 -v --export-release --headless "Windows Desktop" Godottest.exe
+      - run: ./Godot_v${{env.GODOT_VERSION}}_win64.exe -v --export-release --headless "Windows Desktop" Godottest.exe
       - run: ls -la
