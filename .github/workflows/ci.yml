@@ -106,6 +106,6 @@ jobs:
       #     mv ubuntu-latest-nightly/package-lock.json package-lock.json
       #     mv ubuntu-latest-nightly/target/x86_64-unknown-linux-gnu/release/$(basename ubuntu-latest-nightly/target/x86_64-unknown-linux-gnu/release/*) $(basename ubuntu-latest-nightly/target/x86_64-unknown-linux-gnu/release/*)-linux
 
-      - run: gh release create ${{ env.BUILD_ID }} --target ${{ github.sha }} --generate-notes Godottest.dmg Godottest.exe
+      - run: gh release create ${{ env.BUILD_ID }} --target ${{ github.sha }} --generate-notes Godottest.dmg/Godottest.dmg Godottest.exe/Godottest.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
