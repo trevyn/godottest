@@ -50,7 +50,6 @@ jobs:
       - run: rustup default stable && rustup update stable
 
       - run: rustup target add aarch64-apple-darwin
-      - run: rustup target add aarch64-apple-macos
 
       - run: cargo build --release --target aarch64-apple-darwin
         working-directory: "helloext"
