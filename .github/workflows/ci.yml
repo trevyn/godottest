@@ -49,7 +49,7 @@ jobs:
 
       - run: rustup default stable && rustup update stable
 
-      - run: cargo build --release
+      - run: cargo build --release --target aarch64-apple-macos
         working-directory: "helloext"
 
       - run: curl -o godot.zip -L https://github.com/godotengine/godot-builds/releases/download/${{env.GODOT_VERSION}}/Godot_v${{env.GODOT_VERSION}}_macos.universal.zip
