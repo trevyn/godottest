@@ -6,6 +6,5 @@ func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	rotation_degrees += 1
+	rotation_degrees += delta*90
