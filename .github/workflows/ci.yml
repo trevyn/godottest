@@ -84,16 +84,18 @@ jobs:
       - run: unzip templates.zip "templates/windows_release_x86_64*" "templates/version.txt"
       - run: mkdir -p C:/Users/runneradmin/AppData/Roaming/Godot/export_templates/$(cat templates/version.txt)
       - run: mv templates/windows_release_x86_64.exe C:/Users/runneradmin/AppData/Roaming/Godot/export_templates/$(cat templates/version.txt)/windows_release_x86_64.exe
-      # - run: ./Godot_v${{env.GODOT_VERSION}}_win64_console.exe --help
-      - run: ./Godot_v${{env.GODOT_VERSION}}_win64_console.exe -v --headless --export-release "Windows Desktop" ./Godottest.exe
-      # - run: ./Godot_v${{env.GODOT_VERSION}}_win64.exe --help
-      # - run: ./Godot_v${{env.GODOT_VERSION}}_win64.exe -v --headless --export-release "Windows Desktop" Godottest.exe
+      - run: mkdir -p Godottest
+      - run: ./Godot_v${{env.GODOT_VERSION}}_win64_console.exe -v --headless --export-release "Windows Desktop" ./Godottest/Godottest.exe
+      - run: ls
+      - run: ls Godottest
+
+      - run: Compress-Archive Godottest Godottest.zip
       - run: ls
 
       - uses: actions/upload-artifact@v3
         with:
-          name: Godottest.exe
-          path: Godottest.exe
+          name: Godottest.zip
+          path: Godottest.zip
 
   release:
     permissions:
