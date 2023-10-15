@@ -1,8 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://cqy6bphjgf7hc"]
+[gd_scene load_steps=8 format=3 uid="uid://cqy6bphjgf7hc"]
 
 [ext_resource type="PackedScene" uid="uid://c6aft2srev4ay" path="res://label.tscn" id="1_uej5h"]
 [ext_resource type="Texture2D" uid="uid://dib2pa70cidwj" path="res://icon.svg" id="2_xjbre"]
 [ext_resource type="Script" path="res://Icon.gd" id="3_y47ji"]
+[ext_resource type="Script" path="res://Area2D.gd" id="4_ieris"]
+[ext_resource type="Script" path="res://Generator.gd" id="4_nkegp"]
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_lieq2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_da7na"]
+radius = 91.0055
 
 [node name="Root" type="Node2D"]
 
@@ -18,11 +25,23 @@ offset_top = 75.0
 offset_right = 286.0
 offset_bottom = 157.0
 
-[node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(438, 179)
-texture = ExtResource("2_xjbre")
-script = ExtResource("3_y47ji")
-
 [node name="Player" type="Player" parent="."]
 position = Vector2(634, 431)
 texture = ExtResource("2_xjbre")
+
+[node name="Generator" type="Node" parent="."]
+script = ExtResource("4_nkegp")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Generator"]
+stream = SubResource("AudioStreamGenerator_lieq2")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(196, 451)
+script = ExtResource("4_ieris")
+
+[node name="Icon" type="Sprite2D" parent="Area2D"]
+texture = ExtResource("2_xjbre")
+script = ExtResource("3_y47ji")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_da7na")
