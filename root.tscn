@@ -36,6 +36,10 @@ script = ExtResource("4_nkegp")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Generator"]
 stream = SubResource("AudioStreamGenerator_lieq2")
 
+[node name="Label" type="Label" parent="Generator"]
+offset_right = 40.0
+offset_bottom = 23.0
+
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(196, 451)
 script = ExtResource("4_ieris")

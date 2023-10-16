@@ -21,10 +21,12 @@ func _fill_buffer():
 		playback.push_frame(Vector2.ONE * sin(phase * TAU)) # Audio frames are stereo.
 		phase = fmod(phase + increment, 1.0)
 		to_fill -= 1
+	
+	$Label.text = "Skips: "+str(playback.get_skips())
 
 func _ready():
 	$AudioStreamPlayer.stream.mix_rate = sample_hz
-	$AudioStreamPlayer.stream.buffer_length = 0.015
+	$AudioStreamPlayer.stream.buffer_length = 0.012
 	$AudioStreamPlayer.play()
 	playback = $AudioStreamPlayer.get_stream_playback()
 	_fill_buffer()
