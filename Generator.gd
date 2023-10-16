@@ -1,7 +1,7 @@
 extends Node
 
 
-var sample_hz = 22050.0 # Keep the number of samples to mix low, GDScript is not super fast.
+var sample_hz = 44100.0 # Keep the number of samples to mix low, GDScript is not super fast.
 var pulse_hz = 440.0
 var phase = 0.0
 
@@ -26,7 +26,7 @@ func _fill_buffer():
 
 func _ready():
 	$AudioStreamPlayer.stream.mix_rate = sample_hz
-	$AudioStreamPlayer.stream.buffer_length = 0.012
+	$AudioStreamPlayer.stream.buffer_length = 0.024
 	$AudioStreamPlayer.play()
 	playback = $AudioStreamPlayer.get_stream_playback()
 	_fill_buffer()

@@ -1,0 +1,14 @@
+[gd_resource type="AudioBusLayout" load_steps=2 format=3 uid="uid://dfnprauljas2c"]
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_eexxb"]
+resource_name = "Reverb"
+room_size = 0.69
+damping = 0.64
+spread = 0.74
+hipass = 0.22
+dry = 0.66
+
+[resource]
+bus/0/volume_db = -9.2092
+bus/0/effect/0/effect = SubResource("AudioEffectReverb_eexxb")
+bus/0/effect/0/enabled = true

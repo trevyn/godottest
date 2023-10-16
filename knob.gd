@@ -15,7 +15,9 @@ func _physics_process(delta: float) -> void:
 	if following:
 		var ang := get_global_mouse_position().angle_to_point(global_position) + PI/2
 		rotation = ang
-		$"../Generator".pulse_hz = 440+(ang*40)
+		var freq = 440+(ang*40)
+		$"../Generator".pulse_hz = freq
+		$Label.text = str(int(freq))
 #		var d :Vector2= ($knob/knobPoint.position.rotated(.rotation))
 #		var a = $middlePoint.position.angle_to(d)
 #		var finalAng :float= range_lerp( a, -3.14, 3.14, 0, 100 )
