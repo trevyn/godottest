@@ -67,6 +67,7 @@ jobs:
         with:
           name: Godottest.dmg
           path: Godottest.dmg
+          if-no-files-found: error
 
   build-windows:
     runs-on: windows-latest
@@ -81,7 +82,7 @@ jobs:
       - run: curl -o godot.zip -L https://github.com/godotengine/godot-builds/releases/download/${{env.GODOT_VERSION}}/Godot_v${{env.GODOT_VERSION}}_win64.exe.zip
       - run: unzip godot.zip
       - run: curl -o templates.zip -L https://github.com/godotengine/godot-builds/releases/download/${{env.GODOT_VERSION}}/Godot_v${{env.GODOT_VERSION}}_export_templates.tpz
-      - run: unzip templates.zip "templates/windows*" "templates/version.txt"
+      - run: unzip templates.zip "templates/windows*x86_64*" "templates/version.txt"
       - run: mkdir -p C:/Users/runneradmin/AppData/Roaming/Godot/export_templates/$(cat templates/version.txt)
       - run: mv templates/windows* C:/Users/runneradmin/AppData/Roaming/Godot/export_templates/$(cat templates/version.txt)/
       - run: mkdir -p Godottest
@@ -96,6 +97,7 @@ jobs:
         with:
           name: Godottest.zip
           path: Godottest.zip
+          if-no-files-found: error
 
   release:
     permissions:
