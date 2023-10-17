@@ -13,24 +13,9 @@ env:
   GODOT_VERSION: 4.1.2-stable
 
 jobs:
-  # build:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
-
-  #     - run: curl -v -o godot.zip -L https://github.com/godotengine/godot-builds/releases/download/${{env.GODOT_VERSION}}/Godot_v${{env.GODOT_VERSION}}_linux.x86_64.zip
-  #     - run: unzip godot.zip
-  #     - run: curl -v -o templates.zip -L https://github.com/godotengine/godot-builds/releases/download/${{env.GODOT_VERSION}}/Godot_v${{env.GODOT_VERSION}}_export_templates.tpz
-  #     - run: unzip templates.zip "templates/macos.zip" "templates/windows_release_x86_64*" "templates/version.txt"
-  #     - run: mkdir -v -p ~/.local/share/godot/templates/$(cat templates/version.txt)
-  #     - run: mv templates/* ~/.local/share/godot/templates/$(cat templates/version.txt)/
-  #     # - run: Godot.app/Contents/MacOS/Godot -v --export-release --headless "macOS" Godottest.dmg
-  #     - run: ls -la
-
   assign:
     name: assign build_id
     runs-on: ubuntu-latest
-
     steps:
       - run: wget https://github.com/trevyn/animal-time/releases/latest/download/animal-time
       - run: chmod +x animal-time
@@ -42,15 +27,24 @@ jobs:
           name: build_id
           path: build_id
 
-  build-macos:
+  build-macos-no-cargo-lock:
+    needs: [assign]
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-
       - run: rustup default stable && rustup update stable
-
       - run: rustup target add aarch64-apple-darwin
+      - run: rm helloext/Cargo.lock
+      - run: cargo build --target aarch64-apple-darwin
+        working-directory: "helloext"
 
+  build-macos:
+    needs: [assign]
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: rustup default stable && rustup update stable
+      - run: rustup target add aarch64-apple-darwin
       - run: cargo build --release --target aarch64-apple-darwin
         working-directory: "helloext"
 
@@ -70,12 +64,11 @@ jobs:
           if-no-files-found: error
 
   build-windows:
+    needs: [assign]
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-
       - run: rustup default stable && rustup update stable
-
       - run: cargo build
         working-directory: "helloext"
 
@@ -102,7 +95,7 @@ jobs:
   release:
     permissions:
       contents: write
-    needs: [assign, build-macos, build-windows]
+    needs: [assign, build-macos-no-cargo-lock, build-macos, build-windows]
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     steps:
