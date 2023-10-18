@@ -19,6 +19,15 @@ struct Generator {
     sample_hz: f32,
     #[export]
     pulse_hz: f32,
+    #[var(get, set = set_dampening)]
+    #[export]
+    dampening: f32,
+    #[var(get, set = set_wet)]
+    #[export]
+    wet: f32,
+    #[var(get, set = set_dry)]
+    #[export]
+    dry: f32,
     phase: f32,
     playback: Option<Gd<AudioStreamGeneratorPlayback>>,
     freeverb: Freeverb,
@@ -33,6 +42,9 @@ impl NodeVirtual for Generator {
         Self {
             sample_hz: 44100.0,
             pulse_hz: 440.0,
+            dampening: 0.5,
+            wet: 0.5,
+            dry: 0.0,
             phase: 0.0,
             playback: None,
             freeverb: Freeverb::new(44100),
@@ -64,6 +76,27 @@ impl NodeVirtual for Generator {
 
 #[godot_api]
 impl Generator {
+    #[func]
+    pub fn set_dampening(&mut self, v: f32) {
+        godot_print!("set_dampening = {}", v);
+        self.freeverb.set_dampening(v as f64);
+        self.dampening = v;
+    }
+
+    #[func]
+    pub fn set_wet(&mut self, v: f32) {
+        godot_print!("set_wet = {}", v);
+        self.freeverb.set_wet(v as f64);
+        self.wet = v;
+    }
+
+    #[func]
+    pub fn set_dry(&mut self, v: f32) {
+        godot_print!("set_dry = {}", v);
+        self.freeverb.set_dry(v as f64);
+        self.dry = v;
+    }
+
     fn fill_buffer(&mut self) {
         let increment = self.pulse_hz / self.sample_hz;
 

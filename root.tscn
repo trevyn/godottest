@@ -52,6 +52,9 @@ offset_right = 111.0
 offset_bottom = 11.0
 
 [node name="Generator" type="Generator" parent="."]
+pulse_hz = 900.0
+dampening = 0.7
+wet = 0.1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Generator"]
 stream = SubResource("AudioStreamGenerator_lieq2")
