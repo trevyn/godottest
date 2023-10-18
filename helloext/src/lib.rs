@@ -2,15 +2,9 @@
 
 #![allow(unused)]
 use freeverb::Freeverb;
-use godot::engine::audio_stream_player;
-use godot::engine::AudioStreamGenerator;
-use godot::engine::AudioStreamGeneratorPlayback;
-use godot::engine::AudioStreamPlayback;
-use godot::engine::AudioStreamPlayer;
-use godot::engine::Label;
-use godot::engine::Sprite2D;
-use godot::engine::Sprite2DVirtual;
+use godot::engine::*;
 use godot::prelude::*;
+use std::f64;
 
 fn main() {
     struct HelloWorld;
@@ -76,13 +70,11 @@ impl Generator {
         let playback = self.playback.as_mut().unwrap();
 
         let to_fill = playback.get_frames_available();
-        for i in 0..to_fill {
-            let sample = (self.phase as f64 * std::f64::consts::TAU).sin();
+        for _ in 0..to_fill {
+            let sample = (self.phase as f64 * f64::consts::TAU).sin();
+            self.phase = (self.phase + increment) % 1.0;
             let verbed_sample = self.freeverb.tick((sample, sample));
             let v = Vector2::new(verbed_sample.0 as f32, verbed_sample.1 as f32);
-
-            // let v = Vector2::ONE * (self.phase * std::f32::consts::TAU).sin();
-            self.phase = (self.phase + increment) % 1.0;
             playback.push_frame(v);
         }
 
@@ -99,27 +91,22 @@ struct Player {
     angular_speed: f64,
 
     #[base]
-    sprite: Base<Sprite2D>,
+    base: Base<Sprite2D>,
 }
 
 #[godot_api]
 impl Sprite2DVirtual for Player {
-    fn init(sprite: Base<Sprite2D>) -> Self {
+    fn init(base: Base<Sprite2D>) -> Self {
         godot_print!("Hello world from Rust!");
 
         Self {
             speed: 400.0,
-            angular_speed: std::f64::consts::PI,
-            sprite,
+            angular_speed: f64::consts::PI,
+            base,
         }
     }
 
     fn physics_process(&mut self, delta: f64) {
-        // In GDScript, this would be:
-        // rotation += angular_speed * delta
-
-        self.sprite.rotate((self.angular_speed * delta) as f32);
-        // The 'rotate' method requires a f32,
-        // therefore we convert 'self.angular_speed * delta' which is a f64 to a f32
+        self.base.rotate((self.angular_speed * delta) as f32);
     }
 }
