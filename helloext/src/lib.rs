@@ -1,6 +1,7 @@
 // cargo build --release --target aarch64-apple-darwin
 
 #![allow(unused)]
+use freeverb::Freeverb;
 use godot::engine::audio_stream_player;
 use godot::engine::AudioStreamGenerator;
 use godot::engine::AudioStreamGeneratorPlayback;
@@ -26,6 +27,7 @@ struct Generator {
     pulse_hz: f32,
     phase: f32,
     playback: Option<Gd<AudioStreamGeneratorPlayback>>,
+    freeverb: Freeverb,
 
     #[base]
     base: Base<Node>,
@@ -39,6 +41,7 @@ impl NodeVirtual for Generator {
             pulse_hz: 440.0,
             phase: 0.0,
             playback: None,
+            freeverb: Freeverb::new(44100),
             base,
         }
     }
@@ -74,7 +77,11 @@ impl Generator {
 
         let to_fill = playback.get_frames_available();
         for i in 0..to_fill {
-            let v = Vector2::ONE * (self.phase * std::f32::consts::TAU).sin();
+            let sample = (self.phase as f64 * std::f64::consts::TAU).sin();
+            let verbed_sample = self.freeverb.tick((sample, sample));
+            let v = Vector2::new(verbed_sample.0 as f32, verbed_sample.1 as f32);
+
+            // let v = Vector2::ONE * (self.phase * std::f32::consts::TAU).sin();
             self.phase = (self.phase + increment) % 1.0;
             playback.push_frame(v);
         }
