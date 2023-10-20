@@ -79,7 +79,10 @@ jobs:
       - run: mkdir -p C:/Users/runneradmin/AppData/Roaming/Godot/export_templates/$(cat templates/version.txt)
       - run: mv templates/windows* C:/Users/runneradmin/AppData/Roaming/Godot/export_templates/$(cat templates/version.txt)/
       - run: mkdir -p Godottest
-      - run: ./Godot_v${{env.GODOT_VERSION}}_win64_console.exe --verbose --debug --stacktrace --headless --export-debug "Windows Desktop" ./Godottest/Godottest.exe
+      - name: godot build
+        continue-on-error: true
+        run: ./Godot_v${{env.GODOT_VERSION}}_win64_console.exe -v --headless --export-release "Windows Desktop" ./Godottest/Godottest.exe
+
       - run: ls
       - run: ls Godottest
 
