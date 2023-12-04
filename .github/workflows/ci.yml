@@ -69,7 +69,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: rustup default stable && rustup update stable
-      - run: cargo build
+      - run: cargo build --release
         working-directory: "helloext"
 
       - run: curl -o godot.zip -L https://github.com/godotengine/godot-builds/releases/download/${{env.GODOT_VERSION}}/Godot_v${{env.GODOT_VERSION}}_win64.exe.zip
