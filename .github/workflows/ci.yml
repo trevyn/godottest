@@ -10,7 +10,7 @@ permissions:
 
 env:
   CARGO_TERM_COLOR: always
-  GODOT_VERSION: 4.2-beta3
+  GODOT_VERSION: 4.2-stable
 
 jobs:
   assign:
