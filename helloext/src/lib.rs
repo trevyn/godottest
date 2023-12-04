@@ -37,7 +37,7 @@ struct Generator {
 }
 
 #[godot_api]
-impl NodeVirtual for Generator {
+impl INode for Generator {
     fn init(base: Base<Node>) -> Self {
         Self {
             sample_hz: 44100.0,
@@ -128,7 +128,7 @@ struct Player {
 }
 
 #[godot_api]
-impl Sprite2DVirtual for Player {
+impl ISprite2D for Player {
     fn init(base: Base<Sprite2D>) -> Self {
         godot_print!("Hello world from Rust!");
 
