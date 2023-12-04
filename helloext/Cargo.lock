@@ -12,10 +12,39 @@ dependencies = [
 ]
 
 [[package]]
+name = "cfg-if"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
+
+[[package]]
 name = "freeverb"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "68732b37b380a5009de482bc6ad5707dbd98fad8b132ba452d84519bf4b8343e"
+
+[[package]]
+name = "gensym"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "913dce4c5f06c2ea40fc178c06f777ac89fc6b1383e90c254fafb1abe4ba3c82"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+ "uuid",
+]
+
+[[package]]
+name = "getrandom"
+version = "0.2.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fe9006bed769170c11f845cf00c7c1e9092aeb3f268e007c3e760ac68008070f"
+dependencies = [
+ "cfg-if",
+ "libc",
+ "wasi",
+]
 
 [[package]]
 name = "glam"
@@ -26,7 +55,7 @@ checksum = "8e4afd9ad95555081e109fe1d21f2a30c691b5f0919c67dfa690a2e1eb6bd51c"
 [[package]]
 name = "godot"
 version = "0.1.0"
-source = "git+https://github.com/godot-rust/gdext?branch=master#9de7a8eaa414af9a4351608bc02176a160f6bbc3"
+source = "git+https://github.com/godot-rust/gdext?branch=master#77e3b958e53e59f19b4d6ef23a83f01eb6304123"
 dependencies = [
  "godot-core",
  "godot-macros",
@@ -35,7 +64,7 @@ dependencies = [
 [[package]]
 name = "godot-bindings"
 version = "0.1.0"
-source = "git+https://github.com/godot-rust/gdext?branch=master#9de7a8eaa414af9a4351608bc02176a160f6bbc3"
+source = "git+https://github.com/godot-rust/gdext?branch=master#77e3b958e53e59f19b4d6ef23a83f01eb6304123"
 dependencies = [
  "godot4-prebuilt",
 ]
@@ -43,7 +72,7 @@ dependencies = [
 [[package]]
 name = "godot-codegen"
 version = "0.1.0"
-source = "git+https://github.com/godot-rust/gdext?branch=master#9de7a8eaa414af9a4351608bc02176a160f6bbc3"
+source = "git+https://github.com/godot-rust/gdext?branch=master#77e3b958e53e59f19b4d6ef23a83f01eb6304123"
 dependencies = [
  "godot-bindings",
  "godot-fmt",
@@ -57,7 +86,7 @@ dependencies = [
 [[package]]
 name = "godot-core"
 version = "0.1.0"
-source = "git+https://github.com/godot-rust/gdext?branch=master#9de7a8eaa414af9a4351608bc02176a160f6bbc3"
+source = "git+https://github.com/godot-rust/gdext?branch=master#77e3b958e53e59f19b4d6ef23a83f01eb6304123"
 dependencies = [
  "glam",
  "godot-bindings",
@@ -68,8 +97,9 @@ dependencies = [
 [[package]]
 name = "godot-ffi"
 version = "0.1.0"
-source = "git+https://github.com/godot-rust/gdext?branch=master#9de7a8eaa414af9a4351608bc02176a160f6bbc3"
+source = "git+https://github.com/godot-rust/gdext?branch=master#77e3b958e53e59f19b4d6ef23a83f01eb6304123"
 dependencies = [
+ "gensym",
  "godot-bindings",
  "godot-codegen",
  "paste",
@@ -78,7 +108,7 @@ dependencies = [
 [[package]]
 name = "godot-fmt"
 version = "0.1.0"
-source = "git+https://github.com/godot-rust/gdext?branch=master#9de7a8eaa414af9a4351608bc02176a160f6bbc3"
+source = "git+https://github.com/godot-rust/gdext?branch=master#77e3b958e53e59f19b4d6ef23a83f01eb6304123"
 dependencies = [
  "proc-macro2",
 ]
@@ -86,7 +116,7 @@ dependencies = [
 [[package]]
 name = "godot-macros"
 version = "0.1.0"
-source = "git+https://github.com/godot-rust/gdext?branch=master#9de7a8eaa414af9a4351608bc02176a160f6bbc3"
+source = "git+https://github.com/godot-rust/gdext?branch=master#77e3b958e53e59f19b4d6ef23a83f01eb6304123"
 dependencies = [
  "godot-bindings",
  "proc-macro2",
@@ -97,7 +127,7 @@ dependencies = [
 [[package]]
 name = "godot4-prebuilt"
 version = "0.0.0"
-source = "git+https://github.com/godot-rust/godot4-prebuilt?branch=4.1.1#fca6897dbfb1a2d9387f81491acd77f6f091b8c4"
+source = "git+https://github.com/godot-rust/godot4-prebuilt?branch=4.2#9e60296be502e294dde3f245971f2868ce553677"
 
 [[package]]
 name = "heck"
@@ -112,6 +142,12 @@ dependencies = [
  "freeverb",
  "godot",
 ]
+
+[[package]]
+name = "libc"
+version = "0.2.150"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "89d92a4743f9a61002fae18374ed11e7973f530cb3a3255fb354818118b2203c"
 
 [[package]]
 name = "memchr"
@@ -142,9 +178,9 @@ checksum = "de3145af08024dea9fa9914f381a17b8fc6034dfb00f3a84013f7ff43f29ed4c"
 
 [[package]]
 name = "proc-macro2"
-version = "1.0.69"
+version = "1.0.70"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "134c189feb4956b20f6f547d2cf727d4c0fe06722b20a0eec87ed445a97f92da"
+checksum = "39278fbbf5fb4f646ce651690877f89d1c5811a3d4acb27700c1cb3cdb78fd3b"
 dependencies = [
  "unicode-ident",
 ]
@@ -188,10 +224,30 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c08c74e62047bb2de4ff487b251e4a92e24f48745648451635cec7d591162d9f"
 
 [[package]]
+name = "syn"
+version = "2.0.39"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "23e78b90f2fcf45d3e842032ce32e3f2d1545ba6636271dcbf24fa306d87be7a"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "unicode-ident",
+]
+
+[[package]]
 name = "unicode-ident"
 version = "1.0.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3354b9ac3fae1ff6755cb6db53683adb661634f67557942dea4facebec0fee4b"
+
+[[package]]
+name = "uuid"
+version = "1.6.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5e395fcf16a7a3d8127ec99782007af141946b4795001f876d54fb0d55978560"
+dependencies = [
+ "getrandom",
+]
 
 [[package]]
 name = "venial"
@@ -202,3 +258,9 @@ dependencies = [
  "proc-macro2",
  "quote",
 ]
+
+[[package]]
+name = "wasi"
+version = "0.11.0+wasi-snapshot-preview1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9c8d87e72b64a3b4db28d11ce29237c246188f4f51057d65a7eab63b7987e423"
